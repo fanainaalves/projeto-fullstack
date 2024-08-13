@@ -1,0 +1,20 @@
+#marginBottom{
+  display: flexbox;
+  margin-bottom: 120px;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.was-validated .form-control:invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+}
+
+.was-validated .form-control:valid {
+  border-color: #28a745;
+}
+
+.was-validated .form-control:valid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(40,167,69,.25);
+}

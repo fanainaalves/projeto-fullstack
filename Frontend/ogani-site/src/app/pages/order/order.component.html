@@ -1,0 +1,95 @@
+<div class="container p-0 containerComponent">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between" style="background-color: #7fad39; color: white">
+      <div>
+        <h5>Listagem de Pedido(s)</h5>
+      </div>
+    </div>
+  </div>
+  <div class="container shadow my-2 scrollable-container">
+    <div class="shadow px-5">
+      <table class="table table-sm table-condensed table-hover m-3">
+        <thead >
+          <tr >
+            <th class="tableTitle">Pedido</th>
+            <th class="tableTitle">Status Pagamento</th>
+            <th class="tableTitle">Status Pedido</th>
+            <th class="tableTitle col-md-3">Itens do Pedido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div *ngIf="ordersReversed.length === 0">
+           <h6 >Nenhum pedido realizado pelo cliente!!!</h6>
+          </div>
+          <tr
+            *ngFor="let order of ordersReversed | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index"
+            class="cursor-pointer" [routerLink]="['/order-detail/', order.id]">
+
+            <td>
+              <div>
+                OGANI-3456543-0000{{ valor - i }}
+              </div>
+              <div class="text-order">
+                {{ order.created | date:'dd/MM/yyyy' }}
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="text-order mx-1 align-items-center">
+                  <ng-container *ngIf="order.orderStatus === '1'">
+                    <span [ngClass]="{'text-danger': order.orderStatus === '1'}">
+                      <img src="../../../assets/img/order-component/alert.png" alt="Icone entrega" class="order-icon">
+                      Pedido Pendente de Pagamento.
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="order.orderStatus === '2'">
+                    <img src="../../../assets/img/order-component/sucess.png" alt="Icone entrega" class="order-icon">
+                    Pedido Pagamento Efetuado.
+                  </ng-container>
+                </span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <img src="../../../assets/img/order-component/truck-solid.svg" alt="Icone entrega" class="order-icon">
+                <span class="text-order mx-1">
+                  <ng-container *ngIf="order.orderStatus === '1'">
+                    Pedido aguardando confirmação de pagamento.
+                  </ng-container>
+                  <ng-container *ngIf="order.orderStatus === '2'">
+                    <ng-container *ngIf="order.orderNotes === '3'">
+                      Pedido Aguardando Retirada.
+                    </ng-container>
+                    <ng-container *ngIf="order.orderNotes === '4'">
+                      Pedido Entregue.
+                    </ng-container>
+                    <ng-container *ngIf="order.orderNotes === '5'">
+                      Pedido Finalizado.
+                    </ng-container>
+                    <ng-container *ngIf="order.orderNotes === '6'">
+                      Pedido Incorreto.
+                    </ng-container>
+                  </ng-container>
+                </span>
+              </div>
+              <div>
+                <a href="https://rastreamento.correios.com.br/app/index.php" class="text-order">Acompanhar entrega</a>
+              </div>
+            </td>
+            <td class="text-order col-md-4">
+              <div class="d-flex justify-content-between " *ngFor="let item of order?.orderItems"
+                [routerLink]="'/order-detail/' + order.id">
+                <div class="">
+                  <h6 class="my-0 text-order">{{ item.quantity }} x {{ item.description }} </h6>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end my-3">
+    <pagination-controls class="custom-pagination " previousLabel="Anterior" nextLabel="Próxima" (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+</div>

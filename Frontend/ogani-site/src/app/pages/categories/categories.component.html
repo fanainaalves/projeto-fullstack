@@ -1,0 +1,30 @@
+
+  <div class="container containerComponent {
+    margin-top: 180px;
+  }">
+    <div class="container mb-5 text-center">
+    </div>
+    <div class="container mb-5 centered">
+      <div class="row">
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Digite o nome da categoria para fazer uma busca..." [(ngModel)]="searchValue" name="search">
+        </form>
+
+        <div id="meuContainer" class="container mt-2">
+          <div class="row g-5 my-2 container-fluid">
+            <div *ngFor="let category of categories | searchFilter: searchValue" class="col-3 h-25 cardContainer">
+                <div class="card m-2 p-2 shadow cards sizeCard" (click)="goItem(category)">
+                  <div class="ratio ratio-4x3">
+                    <img src="/assets/img/category/{{category.image}}" width="50" height="100" class="card-img-top image-hover">
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{category.name}}</h5>
+                    <p class="categoria">{{ transformType(category) }}</p>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

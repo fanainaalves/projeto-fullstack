@@ -1,0 +1,13 @@
+.img-error{
+  background-image: url('https://hugocalixto.com.br/wp-content/uploads/sites/20/2020/07/error-404-1.png');
+  background-size: 50% ;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100vw;
+  height: 100vh ;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+
+

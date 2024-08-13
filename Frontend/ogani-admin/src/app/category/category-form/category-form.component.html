@@ -1,0 +1,164 @@
+<div class="container">
+  <h2 class="mt-2">Categoria</h2>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ category.id ? 'Editar Categoria' : 'Cadastrar Categoria'}}</li>
+  </ol>
+</div>
+<div class="container" id="marginBottom">
+  <form #categoryform="ngForm" (ngSubmit)="onSubmit()" class="form" [class.was-validated]="formTouched && category.id">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          Categoria adicionada/salva com sucesso!
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="category.id">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>ID:</label>
+          <input type="text" class="form-control" [ngModel]="category.id" name="id" disabled="true" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nome: *</label>
+          <input placeholder="Digite o nome da categoria" type="text" class="form-control"
+            [(ngModel)]="category.name" name="name" #name="ngModel" required
+            (blur)="onFieldTouched(name)"
+            [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+            [class.is-valid]="name.valid && (name.dirty || name.touched)" />
+          <div class="invalid-feedback" *ngIf="name.invalid">
+            Campo Obrigatório. Digite o nome da categoria iniciais maiúsculas sem acentos.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Tipo: *</label>
+          <input type="number" class="form-control" [(ngModel)]="category.type" name="type" #type="ngModel" required
+            (blur)="onFieldTouched(type)"
+            [class.is-invalid]="type.invalid && (type.dirty || type.touched)"
+            [class.is-valid]="type.valid && (type.dirty || type.touched)" />
+          <div class="invalid-feedback" *ngIf="type.invalid && (type.dirty || type.touched)">
+            O tipo deve ser apenas 1 valor numérico! Sendo 1 para serviço e 2 para produto.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Imagem: *</label>
+          <input id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)" required />
+          <div class="card">
+            <div class="card-body mt-3 ms-2">
+              <img *ngIf="category.image" [src]="imagePreview" width="150px" height="150px" alt="Imagem selecionada">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Responsável: *</label>
+          <input type="text" class="form-control" [(ngModel)]="category.registryUser" name="registryUser"
+            value="{{ getUserSession().name }}" readonly />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-success" *ngIf="!category.id">
+          <i class="fa fa-save"></i> Cadastrar
+        </button>
+
+        <button type="submit" class="btn btn-success" *ngIf="category.id"
+        (click)="confirmUpdate(category)" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+
+        <button type="button" class="btn btn-secondary ml-1" (click)="returnList()">
+          <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+        </button>
+        <button type="button" class="btn btn-danger ml-1" *ngIf="category.id" (click)="confirmDeletion(category)"
+          data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa fa-trash"></i> Excluir
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ modalTitle }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="row d-flex align-items-center">
+          <p class="mx-3">Modificação(ões) da categoria <strong class="text-xl">{{ category.name }}</strong>:
+          </p>
+        </div>
+        <div *ngIf="updatedData.length > 0" class="modal-body">
+          <p *ngFor="let item of updatedData" [innerHTML]="item"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-success" (click)="deleteCategory()"
+            *ngIf="modalTitle === 'Excluir Categoria'" routerLink="/category-list" data-bs-toggle="modal"
+            data-bs-target="#modalDelete">Confirmar</button>
+          <button type="button" data-dismiss="modal" class="btn btn-success" (click)="updateCategory()"
+            *ngIf="modalTitle === 'Atualizar Categoria'" routerLink="category-form/:id" data-bs-toggle="modal"
+            data-bs-target="#modalUpdate">Confirmar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelUpdate();"><i
+              class="fa fa-arrow-alt-circle-left"></i> Voltar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Excluindo Categoria <b>{{category.name}}</b>!!
+      </div>
+      <div class="modal-footer">
+        <div ng-app="myApp" ng-controller="myCtrl">
+          <div>
+            <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Atualizando Categoria <b>{{category.name}}</b>!!
+      </div>
+      <div class="modal-footer">
+        <div ng-app="myApp" ng-controller="myCtrl">
+          <div>
+            <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

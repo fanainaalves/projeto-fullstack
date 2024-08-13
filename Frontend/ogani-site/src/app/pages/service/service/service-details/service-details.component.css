@@ -1,0 +1,54 @@
+.container{
+  display: flexbox;
+  padding-top: 10em;
+}
+
+#container {
+  text-align: justify;
+  justify-content: last baseline;
+  height: 360px;
+  overflow: hidden;
+}
+
+div {
+  margin-bottom: 20px;
+}
+
+img {
+  border-radius: 10px;
+}
+
+h5, h2 {
+  text-align: justify;
+  justify-content: space-around;
+  width: 430px;
+  max-width: 90%;
+}
+
+@media (max-width: 1100px) {
+  img {
+    margin-top: 80px;
+    margin: 20px;
+    height: 270px;
+    width: 200px;
+  }
+
+  h5, h2 {
+    margin: 0;
+    margin-left: -55px;
+  }
+}
+
+@media (min-width: 1101px) {
+  img {
+    margin-top: 50px;
+    margin: 30px;
+    height: 310px;
+    width: 440px;
+  }
+
+  h5, h2 {
+    margin: 20px 0;
+    margin-left: 10px;
+  }
+}

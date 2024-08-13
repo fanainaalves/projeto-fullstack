@@ -1,0 +1,191 @@
+<div class="container">
+  <h2 class="mt-2">Usuários</h2>
+  <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">{{ user.id ? 'Editar Usuário' : 'Cadastrar Usuário'}}</li>
+  </ol>
+</div>
+<div class="container" id="marginBottom">
+    <form #userform="ngForm" (ngSubmit)="onSubmit()" class="form" [class.was-validated]="formTouched && user.id">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Usuário adicionado/salvo com sucesso!
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Nome: *</label>
+                    <input type="text" class="form-control"
+                             [(ngModel)]="user.name" name="name" #name="ngModel"  required
+                             pattern="^[A-Z][a-z]+( [A-Z][a-z]+)*$" (blur)="onFieldTouched(name)"
+                             [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+                             [class.is-valid]="name.valid && (name.dirty || name.touched)" />
+                             <div class="invalid-feedback" *ngIf="name.invalid">
+                              Campo Obrigatório. Digite o nome e sobrenome com iniciais maiúsculas sem acentos.
+                           </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label>Nome Usuário: *</label>
+                  <input type="text" class="form-control"
+                            [(ngModel)]="user.username" name="username" #username="ngModel" required
+                            pattern="^[a-z]{6}$" (blur)="onFieldTouched(username)"
+                            [class.is-invalid]="username.invalid && (username.dirty || username.touched)"
+                            [class.is-valid]="username.valid && (username.dirty || username.touched)" />
+                            <div class="invalid-feedback" *ngIf="username.invalid">
+                              Campo Obrigatório. O nome de usuário deve conter 6 caracteres, somente letras minúsculas.
+                            </div>
+              </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>Senha: *</label>
+                <input type="password" class="form-control" placeholder="Digite a senha"
+                          [(ngModel)]="user.password" name="password" #password="ngModel"
+                          required (blur)="onFieldTouched(password)"
+                          [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+                          [class.is-valid]="password.valid && (password.dirty || password.touched)" />
+                          <div class="invalid-feedback" *ngIf="password.invalid">
+                            Campo obrigatório. A senha deve conter entre 6 a 8 caracteres, apenas números.
+                          </div>
+            </div>
+          </div>
+      </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Email: *</label>
+                    <input type="email" class="form-control" placeholder="Ex: user@gmail.com"
+                            [(ngModel)]="user.email" name="email" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                            #email="ngModel" (blur)="onFieldTouched(email)"
+                            [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+                            [class.is-valid]="email.valid && (email.dirty || email.touched)" />
+                            <div class="invalid-feedback" *ngIf="email.invalid">
+                              Campo Obrigatório. Insira um e-mail válido (Ex: user@gmail.com)
+                            </div>
+                </div >
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Responsável: *</label>
+                    <input type="text" class="form-control"
+                           [(ngModel)]="user.registryUser" name="registryUser" value="{{ getUserSession().name }}" readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-success" *ngIf="!user.id"
+                [disabled]="userform.invalid || !isFormValid()">
+                    <i class="fa fa-save"></i> Cadastrar
+                </button>
+
+                <button type="submit" class="btn btn-success" *ngIf="user.id"
+                [disabled]="userform.invalid || !checkForChanges()"(click)="confirmUpdate(user)"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-secondary ml-1" routerLink="/user-list">
+                    <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+                </button>
+
+                <!-- Button open modal -->
+                <button type="button" class="btn btn-danger ml-1" *ngIf="user.id" (click)="confirmDeletion(user)"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <i class="fa fa-trash"></i> Excluir
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">{{ modalTitle }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="row d-flex align-items-center">
+                <p class="mx-3">Modificação(ões) do usuário <strong class="text-xl">{{ originalUser.name }}</strong>: </p>
+              </div>
+              <div *ngIf="updatedData.length > 0" class="modal-body">
+                <p *ngFor="let item of updatedData" [innerHTML]="item"></p>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-success" (click)="deleteUser()"
+                  *ngIf="modalTitle === 'Excluir Usuário'" routerLink="/user-list" data-bs-toggle="modal"
+                  data-bs-target="#modalDelete">Confirmar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-success" (click)="updateUser()"
+                  *ngIf="modalTitle === 'Atualizar Usuário'" routerLink="user-form/:id" data-bs-toggle="modal"
+                  data-bs-target="#modalUpdate">Confirmar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelUpdate();"><i
+                    class="fa fa-arrow-alt-circle-left"></i> Voltar</button>
+              </div>
+            </div>
+          </div>
+       </div>
+    </div>
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ modalTitle }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Excluindo Usuário <b>{{user.name}}</b>!!
+          </div>
+          <div class="modal-footer">
+            <div ng-app="myApp" ng-controller="myCtrl">
+              <div>
+                <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ modalTitle }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Atualizando Usuário <b>{{user.name}}</b>!!
+          </div>
+          <div class="modal-footer">
+            <div ng-app="myApp" ng-controller="myCtrl">
+              <div>
+                <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+

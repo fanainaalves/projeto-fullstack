@@ -1,0 +1,24 @@
+
+::ng-deep .custom-pagination .ngx-pagination a {
+  color: rgb(85, 79, 79);
+  background-color: #f0f0f0 !important;
+  border: 1px solid #e7e5e6 !important;
+  text-decoration: none;
+}
+
+::ng-deep .custom-pagination .ngx-pagination a:hover {
+  background-color: #7e7e7e !important;
+  border-color: #7e7e7e !important;
+}
+
+::ng-deep .custom-pagination .ngx-pagination .current {
+  color: white !important;
+  background-color: #7fad39 !important;
+  border: 1px solid #7fad39 !important;
+}
+
+.scrollable-container {
+  height: 550px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

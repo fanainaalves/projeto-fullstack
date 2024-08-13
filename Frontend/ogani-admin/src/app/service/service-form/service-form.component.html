@@ -1,0 +1,271 @@
+<div class="container">
+  <h2 class="mt-2">Serviços</h2>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ service.id ? 'Editar serviço' : 'Cadastrar serviço'}}</li>
+  </ol>
+</div>
+
+<div class="container" id="marginBottom">
+  <form #serviceForm="ngForm" (ngSubmit)="onSubmit()" class="form" [class.was-validated]="formTouched && service.id">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          Serviço adicionado/salvo com sucesso!
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nome: *</label>
+          <input placeholder="Digite o nome do serviço" type="text" class="form-control"
+            [(ngModel)]="service.name" name="name" required #name="ngModel"
+            (blur)="onFieldTouched(name)"
+            [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+            [class.is-valid]="name.valid && (name.dirty || name.touched)"/>
+            <div class="invalid-feedback" *ngIf="name.invalid">
+              Insira o nome do serviço
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="email">Email: *</label>
+          <input id="email" placeholder="Ex.: service@service.com"
+            type="email" class="form-control"
+            [(ngModel)]="service.email" required
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+            #email="ngModel" name="email" email (blur)="onFieldTouched(email)"
+            [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+            [class.is-valid]="email.valid && (email.dirty || email.touched)"/>
+            <div class="invalid-feedback" *ngIf="email.invalid">
+              Insira um e-mail válido (por exemplo, service@service.com)
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Categoria: *</label>
+          <select class="form-select" aria-label="Default select" [(ngModel)]="service.idCategory"
+            name="idCategory" required #idCategory="ngModel"
+            (blur)="onFieldTouched(idCategory)"
+            [class.is-invalid]="idCategory.invalid && (idCategory.dirty || idCategory.touched)"
+            [class.is-valid]="idCategory.valid && (idCategory.dirty || idCategory.touched)">
+            <option value="" disabled selected>Selecione uma categoria</option>
+            <option *ngFor="let categoria of categories" [value]="categoria.id">{{ categoria.name }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="idCategory.invalid">
+            Escolha a categoria do serviço
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Status: *</label>
+          <input placeholder="Qual status do serviço [true = ativo / false = inativo]" type="text" class="form-control"
+            [(ngModel)]="service.status" name="status" required #status="ngModel"
+            (blur)="onFieldTouched(status)"
+            [class.is-invalid]="status.invalid && (status.dirty || status.touched)"
+            [class.is-valid]="status.valid && (status.dirty || status.touched)"/>
+            <div class="invalid-feedback" *ngIf="status.invalid && (status.dirty || status.touched )">
+              Insira o status do serviço
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Descrição: *</label>
+          <input placeholder="Descreva o serviço" type="text" class="form-control" [(ngModel)]="service.description"
+            name="description" required #description="ngModel"
+            (blur)="onFieldTouched(description)"
+            [class.is-invalid]="description.invalid && (description.dirty || description.touched)"
+            [class.is-valid]="description.valid && (description.dirty || description.touched)"/>
+            <div class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched )">
+              Insira a descrição do serviço
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Preço: *</label>
+          <input placeholder="Ex.: 15.99" type="text" class="form-control" [(ngModel)]="service.price"
+            name="price" required #price="ngModel"
+            (blur)="onFieldTouched(price)"
+            [class.is-invalid]="price.invalid && (price.dirty || price.touched)"
+            [class.is-valid]="price.valid && (price.dirty || price.touched)"/>
+            <div class="invalid-feedback" *ngIf="price.invalid && (price.dirty || price.touched )">
+              Insira o valor do serviço
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Tempo de Execução: (Mês)*</label>
+          <input placeholder="Digite o tempo de execução do serviço" type="number" class="form-control"
+            [(ngModel)]="service.runtime" name="runtime" required #runtime="ngModel"
+            (blur)="onFieldTouched(runtime)"
+            [class.is-invalid]="runtime.invalid && (runtime.dirty || runtime.touched)"
+            [class.is-valid]="runtime.valid && (runtime.dirty || runtime.touched)"/>
+            <div class="invalid-feedback" *ngIf="runtime.invalid && (runtime.dirty || runtime.touched )">
+              Insira o tempo de execução do serviço
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Prazo de Serviço: (Mês)*</label>
+          <input placeholder="Digite o prazo do serviço" type="number"
+            class="form-control" [(ngModel)]="service.term" name="term" required #term="ngModel"
+            (blur)="onFieldTouched(term)"
+            [class.is-invalid]="term.invalid && (term.dirty || term.touched)"
+            [class.is-valid]="term.valid && (term.dirty || term.touched)"/>
+            <div class="invalid-feedback" *ngIf="term.invalid && (term.dirty || term.touched )">
+              Insira o prazo do serviço
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Responsável: *</label>
+          <input type="text" class="form-control" [(ngModel)]="service.registryUser" name="registryUser"
+            value="{{ getUserSession().name }}" readonly />
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Imagem: *</label>
+          <input id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)" required/>
+          <div class="card">
+            <div class="card-body mt-3 ms-2">
+              <img *ngIf="service.image" [src]="imagePreview" width="150px" height="150px" alt="Imagem selecionada">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-success" *ngIf="!service.id">
+          <i class="fa fa-save"></i>
+          Salvar
+        </button>
+
+        <button type="submit" class="btn btn-success" *ngIf="service.id" (click)="confirmUpdate(service)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa fa-sync-alt"></i>
+          Atualizar
+        </button>
+
+        <button type="button" class="btn btn-secondary ml-1" (click)="returnList()">
+          <i class="fa fa-arrow-alt-circle-left"></i>
+          Voltar
+        </button>
+
+        <button type="button" class="btn btn-danger ml-1" *ngIf="service.id" (click)="confirmDeletion(service)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa fa-trash"></i>
+          Excluir
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{modalTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="row d-flex align-items-center">
+        <p class="mx-3">Modificação(ões) do cliente <strong class="text-xl">{{ service.name }}</strong>: </p>
+      </div>
+
+      <div *ngIf="updatedData.length > 0" class="modal-body">
+        <p *ngFor="let item of updatedData" [innerHTML]="item"></p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" data-bs-target="#modalDelete" data-bs-toggle="modal" class="btn btn-success"
+        (click)="deleteService()" routerLink="/service-list" *ngIf="modalTitle === 'Excluir Serviço'">
+          Confirmar
+        </button>
+
+        <button type="button" data-dismiss="modal" data-bs-target="#modalUpdate" data-bs-toggle="modal" class="btn btn-success"
+        (click)="updateService()" *ngIf="modalTitle === 'Atualizar Serviço'" routerLink="service-form/:id">
+          Confirmar
+        </button>
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="fa fa-arrow-alt-circle-left"></i>
+          Voltar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body ">
+        Serviço <b>{{service.name}}</b> excluido!!
+      </div>
+
+      <div class="modal-footer">
+        <div ng-app="myApp" ng-controller="myCtrl">
+          <div>
+            <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body ">
+        Serviço <b>{{service.name}}</b> Editado!!
+      </div>
+      
+      <div class="modal-footer">
+        <div ng-app="myApp" ng-controller="myCtrl">
+          <div>
+            <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

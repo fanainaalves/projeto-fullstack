@@ -1,0 +1,9 @@
+.full-width-img {
+  width: 60%;
+  height:fit-content;
+}
+
+.ScreenHome {
+  overflow-y: hidden;
+  margin-top: 7%
+}

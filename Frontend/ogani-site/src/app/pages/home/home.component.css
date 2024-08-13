@@ -1,0 +1,104 @@
+.container img {
+  max-width: 100%;
+}
+
+.container-shopping {
+  max-width: 300px;
+  align-items: center;
+}
+
+.card-body {
+  text-align: center;
+}
+
+
+.text{
+  text-align: center;
+  font-size: 40px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  color: #487505;
+}
+
+.text-service{
+  text-align: center;
+  font-size: 40px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  color: #487505;
+}
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.price{
+  text-decoration:line-through;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 20px;
+  color: rgb(201, 9, 9);
+}
+
+.central-image{
+  background-size: 122px;
+  background-repeat: no-repeat;
+  width: 130px;
+  height: 115px;
+  position: relative;
+  font-weight: bold;
+  color: white;
+  transform: rotate(330deg);
+}
+
+.central-image h2{
+  font-weight: bold;
+}
+
+/* .btn btn-outline-success {
+  background-color: #ffffff;
+  color: #7FAD39;
+  width: 2.0rem;
+  transition: all 0.3s linear;
+  transform: scale(1.1);
+
+} */
+
+.large-input{
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+#btn{
+  text-align: center;
+  justify-content: center;
+}
+
+#bannerService{
+  cursor: pointer;
+}
+#btnPrice{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 10px;
+
+}
+
+
+#btnQuantity{
+  width: 30px;
+  text-align: left;
+  margin: 0;
+
+}
+
+.quantity-field {
+  margin: 0;
+  padding: 1rem 1.5rem; /* Ajuste o espaçamento conforme necessário */
+  font-weight:bolder;
+  text-align: center;
+}

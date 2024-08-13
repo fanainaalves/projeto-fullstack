@@ -1,0 +1,8 @@
+tbody{
+  margin: 1em;
+}
+
+#marginBottom{
+  display: flexbox;
+  margin-bottom: 80px;
+}

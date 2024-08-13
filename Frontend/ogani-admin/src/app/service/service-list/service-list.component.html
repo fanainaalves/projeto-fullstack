@@ -1,0 +1,62 @@
+<div class="container">
+  <h2 class="mt-2">Serviços</h2>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Listar Serviços</li>
+  </ol>
+</div>
+
+<div class="container" id="marginBottom">
+  <div class="row">
+    <div class="col-md-2">
+      <button class="btn btn-primary" (click)="createService()">
+        <i class="fa fa-plus"></i> Cadastrar
+      </button>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="col-md-12">
+      <form class="d-flex mb-5" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar" [(ngModel)]="searchValue" name="Buscar">
+      </form>
+      <table class="table table-sm table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Prazo (Mês)</th>
+            <th>Responsável</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let service of services | servicessearchfilter:searchValue |  paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength } ">
+            <td>
+              <img src="../../../assets/img/service/{{service.image}}" width="100px" height="70px">
+            </td>
+            <td>{{ service.name}}</td>
+            <td>{{ getCategoryName(service.idCategory) }}</td>
+            <td>{{ service.description }}</td>
+            <td>{{ service.price | currency}}</td>
+            <td>{{ service.term }}</td>
+            <td>{{ service.registryUser }}</td>
+            <td>
+              <button class=" btn btn-primary" id="button" routerLink="/service-form/{{ service.id }}">
+                <i class="fa fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <div class="pagination justify-content-end">
+    <pagination-controls (pageChange)="page=$event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+  </div>
+</div>

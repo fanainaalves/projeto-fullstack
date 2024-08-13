@@ -1,0 +1,55 @@
+<div class="container">
+  <h2 class="mt-2">Categorias</h2>
+  <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Listar Categoria</li>
+  </ol>
+</div>
+<div class="container responsive" id="marginBottom">
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary" routerLink="/category-form"><i class="fa fa-plus"></i> Cadastrar</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12 responsive">
+
+          <form class="d-flex mb-5" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar" [(ngModel)]="searchValue" name="search">
+          </form>
+
+            <table class="table table-sm table-condensed table-hover">
+                <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Nome</th>
+                      <th>Tipo</th>
+                      <th>imagem</th>
+                      <th>Responsável</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories | searchfilter: searchValue | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }">
+
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ transformType(category) }}</td>
+                        <td> <img src="../../../assets/img/categories/{{ category.image }}" width="100px" height="70px"></td>
+                        <td>{{ category.registryUser }}</td>
+                        <td>
+                          <button class=" btn btn-primary"
+                                    routerLink="/category-form/{{ category.id }}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  <br>
+  <div class="pagination justify-content-end">
+    <pagination-controls (pageChange)="page=$event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+  </div>
+
+</div>

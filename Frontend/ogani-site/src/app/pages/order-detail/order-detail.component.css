@@ -1,0 +1,25 @@
+.card-text {
+  margin: 0
+ }
+
+ .cardBar {
+  background-color: #7fad39;
+  color: white;
+ }
+
+ .fixed-card {
+  position: fixed;
+  top: 0;
+  right: 305px;
+  z-index: 1;
+}
+
+.scrollable-container {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.textStatus {
+  color: #7fad39 !important;
+  font-weight: bold !important;
+}

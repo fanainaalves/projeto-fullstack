@@ -1,0 +1,181 @@
+<div class="container">
+  <h2 class="mt-2">Pagamentos</h2>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ payment.id ? 'Editar Pagamento' : 'Cadastrar Pagamento'}}</li>
+  </ol>
+</div>
+
+<div class="container" id="marginBottom">
+  <form #paymentform="ngForm" (ngSubmit)="onSubmit()" class="form" [class.was-validated]="formTouched && payment.id">
+
+    <!-- Alert for success message -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success">
+          Pagamento adicionado/salvo com sucesso!
+        </div>
+      </div>
+    </div>
+
+    <!-- Input fields for payment information -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Total: *</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="payment.value" name="value" #value="ngModel" required
+                 (blur)="onFieldTouched(value)"
+                 [class.is-invalid]="value.invalid && (value.dirty || value.touched)"
+                 [class.is-valid]="value.valid && (value.dirty || value.touched)" />
+          <div class="invalid-feedback" *ngIf="value.invalid">
+            Campo Obrigatório. Digite o valor do pagamento.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Select dropdowns for payment method and status -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Método de pagamento: *</label>
+          <select class="form-select" aria-label="Default select" [(ngModel)]="payment.paymentMethod"
+                  name="paymentMethod" required #paymentMethod="ngModel"
+                  (blur)="onFieldTouched(paymentMethod)"
+                  [class.is-invalid]="paymentMethod.invalid && (paymentMethod.dirty || paymentMethod.touched)"
+                  [class.is-valid]="paymentMethod.valid && (paymentMethod.dirty || paymentMethod.touched)">
+            <option *ngFor="let method of methods" [value]="method.id">{{ method.name }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="paymentMethod.invalid">
+            Campo Obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Status: *</label>
+          <select class="form-control" [(ngModel)]="payment.status"
+                  name="status" required #status="ngModel"
+                  (blur)="onFieldTouched(status)"
+                  [class.is-invalid]="status.invalid && (status.dirty || status.touched)"
+                  [class.is-valid]="status.valid && (status.dirty || status.touched)">
+            <option *ngFor="let state of statusPayment" [value]="state.id">{{ state.name }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="status.invalid">
+            Campo Obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <!-- Input for responsible user -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>ID User: *</label>
+          <input type="text" class="form-control" [(ngModel)]="payment.idUser"
+                 name="idUser" value="{{ payment.idUser }}" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons for form submission and navigation -->
+    <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-success" *ngIf="!payment.id"
+                [disabled]="paymentform.invalid || !isFormValid()">
+          <i class="fa fa-save"></i> Cadastrar
+        </button>
+
+        <button type="submit" class="btn btn-success" *ngIf="payment.id"
+                [disabled]="paymentform.invalid" (click)="confirmUpdate(payment)"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+
+        <button type="button" class="btn btn-secondary ml-1" routerLink="/payment/list">
+          <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+        </button>
+
+        <button type="button" class="btn btn-danger ml-1" *ngIf="payment.id" (click)="confirmDeletion(payment)"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa fa-trash"></i> Excluir
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modals for confirmation and status updates -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ modalTitle }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row d-flex align-items-center">
+            <p class="mx-3">Modificação(ões) do pagamento <strong class="text-xl">{{ originalPayment?.id }}</strong>: </p>
+          </div>
+          <div *ngIf="updatedData.length > 0" class="modal-body">
+            <p *ngFor="let item of updatedData" [innerHTML]="item"></p>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="deletePayment()"
+                  *ngIf="modalTitle === 'Excluir Pagamento'" data-bs-toggle="modal"
+                  data-bs-target="#modalDelete">Confirmar</button>
+          <button type="button" class="btn btn-success" (click)="updatePayment()"
+                  *ngIf="modalTitle === 'Atualizar Pagamento'" data-bs-toggle="modal"
+                  data-bs-target="#modalUpdate">Confirmar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelUpdate();">
+            <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals for deletion and update status -->
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ modalTitle }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Excluindo Pagamento <b>{{ payment.id }}</b>!!
+        </div>
+        <div class="modal-footer">
+          <div ng-app="myApp" ng-controller="myCtrl">
+            <div>
+              <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ modalTitle }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Atualizando Pagamento <b>{{ payment.id }}</b>!!
+        </div>
+        <div class="modal-footer">
+          <div ng-app="myApp" ng-controller="myCtrl">
+            <div>
+              <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

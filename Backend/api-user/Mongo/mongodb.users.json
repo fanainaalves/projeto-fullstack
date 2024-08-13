@@ -1,0 +1,290 @@
+[{
+  "_id": {
+    "$oid": "65f349b02f8a26142ae0e313"
+  },
+  "name": "Larissa Bras",
+  "username": "larisb",
+  "password": "$2a$10$mKEohzRt9PQJgujynGEjX.cwSUZ78n6OZhYBxLfOBKqSI/DSpevni",
+  "email": "larissa.bras@gmail.com",
+  "updated": "2024-05-27T16:00:08.385671500",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "65f34a1e2f8a26142ae0e315"
+  },
+  "name": "Carlos Queiroz",
+  "username": "carlos",
+  "password": "$2a$10$PHVaujWrfmZkkADtmw7OmuxoE77RK0GvICi7apSp5mFagLASkBpjK",
+  "email": "carlos.queiroz@gmail.com",
+  "updated": "2024-05-27T16:00:15.497138100",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "65f47c8cffa46124ab48be74"
+  },
+  "name": "Rafaela Santos",
+  "username": "rafasa",
+  "password": "$2a$10$KlVJNPPkqJ9cP3q15eoV2e66/4HgBDNO8FxOdPULUAhyGxyi.cQIO",
+  "email": "rafaela.santos@gmail.com",
+  "created": "2024-03-15T13:51:24.003418800",
+  "updated": "2024-05-27T16:00:23.799155",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "661984e27bf36612193171ac"
+  },
+  "name": "Maria Lindinalva",
+  "username": "marial",
+  "password": "$2a$10$2L36K0.CQJYvGrvWNdx//OEFYCVfUWZ63xtdgV1zYmdak19CfXIEK",
+  "email": "maria.lindinalva@hotmail.com",
+  "created": "2024-04-12T16:00:50.493818300",
+  "updated": "2024-05-27T16:01:53.347732300",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "66199b617bf36612193171ad"
+  },
+  "name": "Paloma Soares",
+  "username": "paloma",
+  "password": "$2a$10$//.tblcAV2pYSkIAklL47eKE/lyMUr3VWC0Z9A74NIivxUbhjNmBC",
+  "email": "paloma.soares@gmail.com",
+  "created": "2024-04-12T17:36:49.054885900",
+  "updated": "2024-05-27T16:02:03.751609",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "662c15235a618d5e7800742a"
+  },
+  "name": "Karina Alvoredo",
+  "username": "karina",
+  "password": "$2a$10$hKW8Q6OK38ptZCe5bBHQDeM0pGp91C7fbwAKcN3QcY.lcUEK3ocIC",
+  "email": "karina.alvoredo@gmail.com",
+  "updated": "2024-05-27T16:02:14.408544800",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "662fb38f7b2b466068030a36"
+  },
+  "name": "Lizia Andrade",
+  "username": "liziaa",
+  "password": "$2a$10$yFxaqaZ.hfHo1TtsOSzTR.xyllP2pk6hLtGImEyuzpx7m6y1NA6UK",
+  "email": "lizia.andrade@gmail.com",
+  "updated": "2024-05-27T16:02:21.772806",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "662ff14a7b2b466068030a39"
+  },
+  "name": "Lara Fabiola",
+  "username": "fabiol",
+  "password": "$2a$10$OKYwyNu6Ya3iRBkZpSO60.gY0ko0eEx7XPJIBJjWlEWbb2IaNQvme",
+  "email": "lara@gmail.com",
+  "updated": "2024-05-27T15:59:09.579447600",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+},
+{
+  "_id": {
+    "$oid": "662ffe4e2c26e67ca5bd19fa"
+  },
+  "name": "Maju Dantas",
+  "username": "majuda",
+  "password": "$2a$10$XFsLS0i1mrRQo.D.TJTxV.uBcntDdM2a.9.5KM2sL52H3G7o.ZHka",
+  "email": "maju@gmail.com",
+  "updated": "2024-05-27T16:09:51.922950900",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "6644c9250b22eb34979010c8"
+  },
+  "name": "Luana Melo",
+  "username": "luanaa",
+  "password": "$2a$10$YyD/bFEO0v.B3HhjXxEf9uekKyE2DGQjUQ5OoKsKGhTg1uhL1FI0i",
+  "email": "luana@gmail.com",
+  "updated": "2024-05-27T15:59:34.295901700",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "6644ccfb0b22eb34979010c9"
+  },
+  "name": "Severino Oliveira",
+  "username": "severo",
+  "password": "$2a$10$UEnSaRpz.kQO1Ge8T5CJyucWnpjvb64Ayf0bc.IQ/2W7PFWuOEWP2",
+  "email": "severino@gmail.com",
+  "updated": "2024-05-27T21:52:45.347865400",
+  "registryUser": "Fanaina Alves",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "6644cd6a0b22eb34979010ca"
+  },
+  "name": "Thor Ferraz",
+  "username": "thorfe",
+  "password": "$2a$10$sBkf508nwfmtRYzKs9xfKOhG6rr0cWt7P.y/Uw2.mCDjHv9Qf7ax2",
+  "email": "thor@gmail.com",
+  "updated": "2024-05-27T17:28:27.073181200",
+  "registryUser": "Fabio Argona",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "664b6401b2d83b14a4db54e4"
+  },
+  "name": "Safira Leopoldo",
+  "username": "sabrin",
+  "password": "$2a$10$wxHtIw5PtKivSV3FSc8DMuR0LtvuOdp/vlqyv/Byq6yVPPFclLkl6",
+  "email": "sabrina@gmail.com",
+  "created": "2024-05-20T11:53:53.542798400",
+  "updated": "2024-05-27T17:26:53.681086600",
+  "registryUser": "Caio Oliveira",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "664bb0a3f2e7b74f15d8e62a"
+  },
+  "name": "Viviane Salt",
+  "username": "vivian",
+  "password": "$2a$10$iNkO2zMAcWUL3YiEHDu2wu0rk70wLe/G6dA2YS9RBrR.GPR1WZhhi",
+  "email": "viviane.salt@gmail.com",
+  "created": "2024-05-20T17:20:51.181344200",
+  "updated": "2024-05-27T17:26:45.400010700",
+  "registryUser": "Caio Oliveira",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "664bb47c0ca6100afc107942"
+  },
+  "name": "Magnolia Freitas",
+  "username": "manoli",
+  "password": "$2a$10$VvRtL/gS..5.xKR2liFWQOKiWQefqeXsgAZ2Nen36SFkLnIi.OTdm",
+  "email": "magnolia@gmail.com",
+  "updated": "2024-05-27T16:57:49.629207200",
+  "registryUser": "Fabio Argona",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "664d0e88de75dc230bbcc261"
+  },
+  "name": "Virginia Pedrosa",
+  "username": "virgia",
+  "password": "$2a$10$HGgJlfocKgVQwR6gJ5HyEuSa2MHBk1TWYMQSUH5OGrQafkQm.7sC.",
+  "email": "virginia@gmail.com",
+  "created": "2024-05-21T18:13:44.425217600",
+  "updated": "2024-05-27T16:22:59.836614200",
+  "registryUser": "Fabio Argona",
+  "_class": "com.ms.user.model.User"
+},
+{
+  "_id": {
+    "$oid": "6654d734f5b2f1018949fcf5"
+  },
+  "name": "Fabio Argona",
+  "username": "fabiog",
+  "password": "$2a$10$TxmWz3.FOsGb1jYDOTxt2u1oJ32zjw3SLjlMX4FQ1vs99nFz1dLFG",
+  "email": "fabio.argona@gmail.com",
+  "created": "2024-05-27T15:55:48.738770",
+  "registryUser": "Priscila Passos",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+},
+{
+  "_id": {
+    "$oid": "6654ec22b63fb56f1d890484"
+  },
+  "name": "Caio Oliveira",
+  "username": "caioli",
+  "password": "$2a$10$3i7mQwrkTotkQxfktULalOr22TJbe7SNdl7liGWh70bg/WgxF54rC",
+  "email": "caio.oliveira@gmail.com",
+  "created": "2024-05-27T17:25:06.315747800",
+  "registryUser": "Fabio Argona",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+},
+{
+  "_id": {
+    "$oid": "6654ed5db63fb56f1d890485"
+  },
+  "name": "Neuber Souza",
+  "username": "neuber",
+  "password": "$2a$10$s9.K0060bJPX.3.o8CUygedaEIeSKMJ9est2YEOPHnUG8aaRtPgHm",
+  "email": "neuber@gmail.com",
+  "created": "2024-05-27T17:30:21.278826900",
+  "registryUser": "Caio Oliveira",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+},
+{
+  "_id": {
+    "$oid": "6654edaeb63fb56f1d890486"
+  },
+  "name": "Fanaina Alves",
+  "username": "fanyal",
+  "password": "$2a$10$ewhUSEEdaVKTKLluQlF82ueMi1.Hrc3c2EAngtlPCq4xDfp3296Bi",
+  "email": "fanaina@gmail.com",
+  "created": "2024-05-27T17:31:42.255659400",
+  "registryUser": "Fabio Argona",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+},
+{
+  "_id": {
+    "$oid": "6655321658612a3683f216b0"
+  },
+  "name": "Mariana Consolaro",
+  "username": "mariia",
+  "password": "$2a$10$yJFFtpf/Ei7E9Bs7QuXOe.IwuSDcSMJEc0Qijv.kuzCs5sKrzRWqq",
+  "email": "mariana.consolaro@gmail.com",
+  "created": "2024-05-27T22:23:34.394108700",
+  "registryUser": "Fanaina Alves",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+},
+{
+  "_id": {
+    "$oid": "6655322d58612a3683f216b1"
+  },
+  "name": "Vinicius Melo",
+  "username": "vinici",
+  "password": "$2a$10$3Fy2ERPE19QsoWk5atKy1O5R8CPcuB7xkMuaTkroXR3XdLImgHmkG",
+  "email": "vinicius.melo@gmail.com",
+  "created": "2024-05-27T22:23:57.624084300",
+  "registryUser": "Fanaina Alves",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+},
+{
+  "_id": {
+    "$oid": "6655324b58612a3683f216b2"
+  },
+  "name": "Priscila Passos",
+  "username": "prisci",
+  "password": "$2a$10$81McCl7vvcj10A1f7DMawuQvCbqiGGRROvPGXLapu6ecK97fSVvga",
+  "email": "priscila.passos@gmail.com",
+  "created": "2024-05-27T22:24:27.177138600",
+  "registryUser": "Fanaina Alves",
+  "_class": "com.ms.user.model.User",
+  "role": "ADMIN"
+}]

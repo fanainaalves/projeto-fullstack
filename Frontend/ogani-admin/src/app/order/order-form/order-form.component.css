@@ -1,0 +1,9 @@
+.scroll-container {
+  height: 200px; /* Ajuste a altura conforme necessário */
+  overflow-y: auto;
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+}

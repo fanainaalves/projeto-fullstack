@@ -1,0 +1,116 @@
+<div class="container">
+  <h2 class="mt-2">Pedido</h2>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ order.id ? 'Editar Pedido' : 'Cadastrar Pedido' }}</li>
+  </ol>
+  <form #orderform="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success">
+          Pedido {{ order.id ? 'atualizado' : 'adicionado' }} com sucesso!
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errors && errors.length > 0">
+          <ul>
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="order.id">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>ID:</label>
+          <input type="text" class="form-control" [ngModel]="order.id" name="id" disabled />
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="form-group">
+          <label>Cliente:</label>
+          <input type="text" class="form-control" [(ngModel)]="order.client" name="client" disabled />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="scroll-container shadow">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th class="col-3">Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Preço Unitário</th>
+                        <th>Desconto</th>
+                        <th>Total Final</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of order.orderItems">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td class="text-end px-5"><span *ngIf="item.quantity < 9">0</span>{{ item.quantity }}</td>
+                        <td>R$ {{ item.price.toFixed(2) | currency: 'BRL' }}</td>
+                        <td>{{item.discount}}%</td>
+                        <td>R$ {{ item.price - (item.price * (item.discount / 100)) | currency: 'BRL' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <td>Total: <strong>{{ getTotalOrderPrice() | currency: 'BRL' }}</strong></td>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-success" *ngIf="!order.id">
+          <i class="fa fa-save"></i> Salvar
+        </button>
+        <!-- <button type="submit" class="btn btn-success" *ngIf="order.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button> -->
+        <button type="button" class="btn btn-secondary ml-1" routerLink="/order-list">
+          <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+        </button>
+        <!-- <button type="button" class="btn btn-danger ml-1" *ngIf="order.id" (click)="confirmDeletion(order)"
+          data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa fa-trash"></i> Excluir
+        </button> -->
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Excluir Pedido?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Deseja realmente excluir o Pedido <b>{{ order.client }}</b>?</p>
+        <p>Id - <b>{{order.id}}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="deleteOrder(); orderform.reset()"
+          routerLink="/order-list">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+            class="fa fa-arrow-alt-circle-left"></i> Voltar</button>
+      </div>
+    </div>
+  </div>
+</div> -->

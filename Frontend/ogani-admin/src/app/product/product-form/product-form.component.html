@@ -1,0 +1,259 @@
+<div class="container">
+  <h2 class="mt-2">Produtos</h2>
+  <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">{{ product.id ? 'Editar Produto' : 'Cadastrar Produto'}}</li>
+  </ol>
+</div>
+<div class="container" id="marginBottom">
+    <form #productForm="ngForm" (ngSubmit)="onSubmit()" [class.was-validated]="formTouched && product.id">
+        <!-- Conteúdo do formulário -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Produto adicionado/salvo com sucesso!
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" *ngIf="product.id">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input type="text" class="form-control"
+                            [ngModel]="product.id" name="id" disabled/>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Nome: *</label>
+                    <input type="text" class="form-control"
+                            [(ngModel)]="product.name" name="name"  #name="ngModel" required
+                            pattern="^[A-ZÀ-Ú][a-zà-úÀ-Ú]*( [A-ZÀ-Ú][a-zà-úÀ-Ú]*)?$" (blur)="onFieldTouched(name)"
+                            [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+                            [class.is-valid]="name.valid && (name.dirty || name.touched)" />
+                            <div class="invalid-feedback" *ngIf="name.invalid">
+                              Campo Obrigatório. Digite o nome do produto com iniciais maiúsculas.
+                            </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label>Descrição do produto: *</label>
+                  <input type="text" class="form-control"
+                         [(ngModel)]="product.description" name="description" #description="ngModel" required
+                         description pattern="^[A-ZÀ-Ú][a-zà-úÀ-Ú0-9 ]*$" (blur)="onFieldTouched(description)"
+                         [class.is-invalid]="description.invalid && (description.dirty || description.touched)"
+                         [class.is-valid]="description.valid && (description.dirty || description.touched)" />
+                  <div class="invalid-feedback" *ngIf="description.invalid">
+                      Campo Obrigatório. Insira uma descrição válida do produto (Ex: Bandeja de 300g).
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Preço: *</label>
+                    <input type="text" class="form-control"
+                            [(ngModel)]="product.price" name="price"  #price="ngModel" required
+                            price pattern="^\d+(\.\d{1,2})?$" (blur)="onFieldTouched(description)"
+                            [class.is-invalid]="price.invalid && (price.dirty || price.touched)"
+                            [class.is-valid]="price.valid && (price.dirty || price.touched)" />
+                          <div class="invalid-feedback" *ngIf="price.invalid">
+                            Campo Obrigatório. Insira um preço válido do produto (Ex: 10 ou 10.00).
+                          </div>
+                </div>
+            </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Categoria: *</label>
+                <select class="form-select" aria-label="Default select" [(ngModel)]="product.idCategory"
+                  name="idCategory" required #idCategory="ngModel"
+                  (blur)="onFieldTouched(idCategory)"
+                  [class.is-invalid]="idCategory.invalid && (idCategory.dirty || idCategory.touched)"
+                  [class.is-valid]="idCategory.valid && (idCategory.dirty || idCategory.touched)">
+                  <option value="" disabled selected>Selecione uma categoria</option>
+                  <option *ngFor="let categoria of categories" [value]="categoria.id">{{ categoria.name }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="idCategory.invalid">
+                  Escolha a categoria do produto.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Marca: *</label>
+                    <input type="text" class="form-control"
+                            [(ngModel)]="product.brand" name="brand"  #brand="ngModel" required
+                            brand pattern="^[A-ZÀ-Ú][a-zà-úÀ-Ú0-9]*( [A-ZÀ-Ú][a-zà-úÀ-Ú0-9]*)*$" (blur)="onFieldTouched(description)"
+                            [class.is-invalid]="brand.invalid && (brand.dirty || brand.touched)"
+                            [class.is-valid]="brand.valid && (brand.dirty || brand.touched)" />
+                          <div class="invalid-feedback" *ngIf="brand.invalid">
+                            Campo Obrigatório. Insira uma marca válida do produto (Ex: Vinhedense).
+                          </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Estoque: *</label>
+                    <input type="text" class="form-control"
+                            [(ngModel)]="product.stock" name="stock" #stock="ngModel" required
+                            stock pattern="^[A-ZÀ-Ú][a-zà-úÀ-Ú0-9]*( [a-zà-úÀ-Ú0-9]+)*$" (blur)="onFieldTouched(description)"
+                            [class.is-invalid]="stock.invalid && (stock.dirty || stock.touched)"
+                            [class.is-valid]="stock.valid && (stock.dirty || stock.touched)" />
+                          <div class="invalid-feedback" *ngIf="stock.invalid">
+                            Campo Obrigatório. Insira se há disponibilidade do produto (Ex: Em estoque/Fora de estoque).
+                          </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Fornecedor: *</label>
+                    <input type="text" class="form-control"
+                            [(ngModel)]="product.supplier" name="supplier" #supplier="ngModel" required
+                             supplier pattern="^[A-ZÀ-Ú][a-zà-úÀ-Ú0-9]*( [A-ZÀ-Ú][a-zà-úÀ-Ú0-9]*)*$" (blur)="onFieldTouched(description)"
+                            [class.is-invalid]="supplier.invalid && (supplier.dirty || supplier.touched)"
+                            [class.is-valid]="supplier.valid && (supplier.dirty || supplier.touched)" />
+                          <div class="invalid-feedback" *ngIf="supplier.invalid">
+                            Campo Obrigatório. Insira o nome do fornecedor(Ex: Sítio Verde).
+                          </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Desconto: *</label>
+                    <input type="text" class="form-control"
+                            [(ngModel)]="product.discount" name="discount" #discount="ngModel" required
+                            discount pattern="^\d+(\.\d{1,2})?$" (blur)="onFieldTouched(description)"
+                            [class.is-invalid]="discount.invalid && (discount.dirty || discount.touched)"
+                            [class.is-valid]="discount.valid && (discount.dirty || discount.touched)" />
+                          <div class="invalid-feedback" *ngIf="discount.invalid">
+                            Campo Obrigatório. Insira a porcentagem de desconto aplicada ao produto(Ex: 10).
+                          </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                  <label>Responsável: *</label>
+                  <input type="text" class="form-control"
+                          [(ngModel)]="product.registryUser" name="registryUser" value="{{ getUserSession().name }}" readonly/>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Imagem: *</label>
+                    <input id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)" required />
+                    <div class="invalid-feedback">Caso queira adicionar/trocar a imagem, por favor selecione um arquivo.</div>
+                    <div class="card">
+                        <div class="card-body mt-3 ms-2">
+                            <img *ngIf="product.image" [src]="imagePreview" width="150px" height="150px" alt="Imagem selecionada" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="row">
+  <div class="col-md-12">
+      <button type="submit" class="btn btn-success" *ngIf="!product.id">
+          <i class="fa fa-save "></i> Salvar
+      </button>
+      <button type="submit" class="btn btn-success" *ngIf="product.id" (click)="confirmUpdate(product)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa fa-sync-alt"></i> Atualizar
+      </button>
+
+      <button type="button" class="btn btn-secondary ml-1" routerLink="/product-list">
+          <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+      </button>
+       <!-- Button open modal -->
+      <button type="button" class="btn btn-danger ml-1" *ngIf="product.id" (click)="confirmDeletion(product)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           <i class="fa fa-trash"></i> Excluir
+      </button>
+
+  </div>
+</div>
+</form>
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="row d-flex align-items-center">
+        <p class="mx-3">Modificação(ões) do produto <strong class="text-xl">{{ product.name }}</strong>: </p>
+      </div>
+      <div *ngIf="updatedData.length > 0" class="modal-body">
+        <p *ngFor="let item of updatedData" [innerHTML]="item"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" data-bs-target="#modalDelete" data-bs-toggle="modal" class="btn btn-success"
+        (click)="deleteProduct()"
+          *ngIf="modalTitle === 'Excluir Produto'" routerLink="/product-list" data-bs-toggle="modal">
+          Confirmar</button>
+
+          <button type="button" data-dismiss="modal" data-bs-target="#modalUpdate" data-bs-toggle="modal" class="btn btn-success"
+          (click)="updateProduct()" *ngIf="modalTitle === 'Atualizar Produto'" routerLink="product/:id">
+            Confirmar
+          </button>
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+        (click)="cancelUpdate();"><i
+            class="fa fa-arrow-alt-circle-left"></i>
+            Voltar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ modalTitle }}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      Produto <b>{{product.name}}</b> excluído!!
+    </div>
+    <div class="modal-footer">
+      <div ng-app="myApp" ng-controller="myCtrl">
+        <div>
+          <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ modalTitle }}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      Atualizando Produto <b>{{product.name}}</b>!!
+    </div>
+    <div class="modal-footer">
+      <div ng-app="myApp" ng-controller="myCtrl">
+        <div>
+          <img src="../../../assets/carregamento.gif" alt="Carregamento" class="progress">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

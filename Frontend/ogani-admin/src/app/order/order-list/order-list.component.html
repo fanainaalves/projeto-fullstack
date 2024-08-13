@@ -1,0 +1,73 @@
+<div class="container">
+  <h2 class="mt-2">Pedidos</h2>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Listar Pedidos</li>
+  </ol>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="d-flex mb-5" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Buscar"
+          [(ngModel)]="searchValue"
+          name="search"
+        />
+      </form>
+      <table class="table table-sm table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Data da compra</th>
+            <th>Status Pagamanto</th>
+            <th>Status Pedido</th>
+            <th>Informações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let order of orders | ordersearchfilter: searchValue
+                | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }
+            "
+          >
+            <td>{{ order.client }}</td>
+            <td>
+              <div>{{ order.created | date: "dd 'de' MMM. 'de' yyyy" }}</div>
+            </td>
+            <td>
+              <ng-container [ngSwitch]="order.orderStatus">
+                <span *ngSwitchCase="'1'">Pedido Pendente de Pagamento.</span>
+                <span *ngSwitchCase="'2'">Pedido Pagamento Efetuado.</span>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container [ngSwitch]="order.orderNotes">
+                <span *ngSwitchCase="'3'">Pedido Aguardando Retirada.</span>
+                <span *ngSwitchCase="'4'">Pedido Entregue.</span>
+                <span *ngSwitchCase="'5'">Pedido Finalizado.</span>
+                <span *ngSwitchCase="'6'">Pedido Incorreto.</span>
+                <span *ngSwitchDefault>Informação Indisponível.</span>
+              </ng-container>
+            </td>
+            <td>
+              <button class="btn btn-primary" [routerLink]="['/order-form', order.id]">
+                Detalhes
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+  <div class="pagination justify-content-end">
+    <pagination-controls
+      (pageChange)="page = $event"
+      previousLabel="Anterior"
+      nextLabel="Próximo"
+    ></pagination-controls>
+  </div>
+</div>

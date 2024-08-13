@@ -1,0 +1,88 @@
+ <div class="container containerComponent">
+   <div class="card">
+     <div class="card-header d-flex justify-content-between" style="background-color: #7fad39; color: white">
+       <div>
+         <h5>Detalhes do Pedido</h5>
+       </div>
+     </div>
+   </div>
+   <br />
+   <div class="d-flex justify-content-between shadow mb-4 p-1">
+     <div class="col-md-5 m-2 p-2 shadow  scrollable-container">
+       <div class="card p-2 mb-3 h-100" style="margin-bottom: 100px">
+         <div class="d-flex justify-content-between p-3 shadow card-order-detail rounded"
+           *ngFor="let item of order?.orderItems"
+           style="margin-bottom: 20px">
+           <div class="col-6">
+             <h6 class="my-0">{{ item.name }}</h6>
+             <small class="text-muted">{{ item.description }}</small>
+           </div>
+           <span class="text-muted col-2">Uni: {{ item.quantity }}</span>
+           <div class="row d-flex text-end">
+            <span class="text-muted">Unitário: {{ item.price - (item.price * (item.discount / 100)) | currency }}
+            </span>
+             <span class="text-muted">Total: {{ (item.price - (item.price * (item.discount / 100))) * item.quantity | currency }}</span>
+
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="col-6 card m-2 shadow">
+       <div class="m-2 shadow">
+         <div class="text-center">
+           <div class="m-2">
+             <div class="row">
+               <div class="col-md-12">
+                 <h4 class="m-1">Informações de Pagamento</h4>
+                 <hr>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="text-end mx-1">
+           <div class="my-1 ">
+             <h5>Resumo de pagamento</h5>
+             <hr>
+           </div>
+           <div>
+             <p>Total de <span><b> <span *ngIf="this.indiceFinalDeI<10" > 0</span>{{this.indiceFinalDeI}}</b></span>
+               item(s):<span><b></b></span>
+               <p>Valor do Pedido: <span><b> {{ getTotalOrderPrice() + getDiscount() | currency }}</b></span>
+               <p>Total do desconto: <span><b> {{ getDiscount() | currency }}</b></span>
+               <p>Total do com desconto: <span><b> {{ getTotalOrderPrice() | currency }}</b></span>
+           </div>
+           <div class="my-3 ">
+             <h5>Entrega</h5>
+             <hr>
+           </div>
+           <h5>Status pedido</h5>
+           <div [ngSwitch]="order?.orderStatus">
+             <div *ngSwitchCase="1">
+               <p class="text-warning m-2"><b>Pendente</b></p>
+             </div>
+             <div *ngSwitchCase="2">
+               <p class="text-success m-2"><b>Pago</b></p>
+             </div>
+             <div *ngSwitchDefault>
+               <p class="text-muted m-2"><b>
+                   <div [ngSwitch]="order?.orderStatus">
+                     <div *ngSwitchCase="1">
+                       <p class="text-warning"><b>Pendente</b></p>
+                     </div>
+                     <div *ngSwitchDefault>
+                       <p class="text-muted textStatus"><b>Pedido Pagamento Efetuado</b></p>
+                     </div>
+                   </div>
+                 </b></p>
+             </div>
+           </div>
+         </div>
+         <div class="btn d-flex justify-content-end">
+           <div>
+             <button routerLink="/home" class="site-btn m-2 rounded">Voltar a loja</button>
+             <button routerLink="/order" class="site-btn bg-secondary rounded">Voltar a lista</button>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
